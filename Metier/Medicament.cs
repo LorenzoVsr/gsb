@@ -15,10 +15,10 @@ namespace Metier
         // seront utilisées comme clé d'accès dans un dictionnaire  (panier des médicaments distribués)
 
         public int CompareTo(Medicament? o) => Nom.CompareTo(o!.Nom);
-        
+
 
         // Constructeur
-        public Medicament (string id, string nom, string composition, string effets, string contreIndication, Famille famille)
+        public Medicament(string id, string nom, string composition, string effets, string contreIndication, Famille famille)
         {
             Id = id;
             Nom = nom;
@@ -41,5 +41,12 @@ namespace Metier
 
         public override string ToString() => Id;
 
+        public Famille Famille
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

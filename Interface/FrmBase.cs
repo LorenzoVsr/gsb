@@ -45,7 +45,7 @@ namespace Interface
 
         private void programmerRendezVous_Click(object sender, EventArgs e)
         {
-            // ouvrirFormulaire(new FrmVisiteAjout(session));
+            ouvrirFormulaire(new FrmVisiteAjout(session));
         }
 
         private void modifierRendezVous_Click(object sender, EventArgs e)
@@ -92,8 +92,18 @@ namespace Interface
         /// </summary>
         private void ouvrirFormulaire(Form frm)
         {
-           
+            frm.Show();
+
+            if (this is FrmMenu)
+            {
+                this.Hide();
+            }
+            else
+            {
+                this.Close();
+            }
         }
+        
 
         private void parametrerComposant()
         {

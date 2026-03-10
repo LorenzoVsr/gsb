@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Metier.Famille">
+    <Position X="11" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAUACAAAAAAAA=</HashCode>
+      <FileName>Famille.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metier.Medicament">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAAAAAACAQEAAAAAAAAACAAAAAAAACAAQAAAAA=</HashCode>
+      <FileName>Medicament.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Famille" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metier.Motif">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Motif.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metier.Praticien">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAQAACAAEEQAAAgAAAAAECAAIAAAAaAAAQAAAQI=</HashCode>
+      <FileName>Praticien.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TypePraticien" />
+      <Property Name="Specialite1" />
+      <Property Name="Visite" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Metier.Session">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAgABAAAAAAAAAAQAAAAFAAAAAAAAAAAAAAAgBAEAA=</HashCode>
+      <FileName>Session.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metier.Specialite">
+    <Position X="12.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Specialite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metier.TypePraticien">
+    <Position X="12.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>TypePraticien.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metier.Ville">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ville.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Metier.Visite">
+    <Position X="4.25" Y="5" Width="1.5" />
+    <AssociationLine Name="Medicament" Type="Metier.Medicament" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="5" />
+        <Point X="4.75" Y="4.326" />
+        <Point X="4.75" Y="4.326" />
+        <Point X="4.75" Y="3.651" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAADKgAAAQAADBQAABBAAACAAgAAAAAUCAAIAAgABAA=</HashCode>
+      <FileName>Visite.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Praticien" />
+      <Property Name="Medicament" />
+      <Property Name="Medicament1" />
+      <Property Name="Motif" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.327" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
