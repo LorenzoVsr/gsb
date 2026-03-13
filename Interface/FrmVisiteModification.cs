@@ -1,18 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Donnee;
+using Metier;
 using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
 namespace Interface
 {
-    public partial class FrmVisiteModification : Form
+    public partial class FrmVisiteModification : FrmBase
     {
-        public FrmVisiteModification()
+        public FrmVisiteModification(Session uneSession) : base(uneSession)
         {
             InitializeComponent();
+        }
+
+        #region procédures événementielles
+
+        private void FrmVisiteModification_Load(object sender, EventArgs e)
+        {
+            parametrerComposant();
+        }
+
+        #endregion
+
+        #region procédures
+
+        private void parametrerComposant()
+        {
+            this.lblTitre.Text = "Modifier une visite";
+        }
+        #endregion
+
+        private void dgvVisites_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -48,7 +48,6 @@ namespace Metier
 
             // mise à jour de la relation bidirectionnelle avec l'objet Praticien
             LePraticien.ajouteVisite(this);
-
         }
 
         // méthode enregistrerBilan : alimente les propriétés Bilan, PremierMedicament, SecondMedicament
@@ -93,41 +92,6 @@ namespace Metier
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public Praticien Praticien
-        {
-            get => default;
-            set
-            {
-                
-            }
-        }
-
-        public Medicament Medicament
-        {
-            get => default;
-            set
-            {
-
-            }
-        }
-
-        public Medicament Medicament1
-        {
-            get => default;
-            set
-            {
-
-            }
-        }
-
-        public Motif Motif
-        {
-            get => default;
-            set
-            {
-
-            }
-        }
     }
 
 }

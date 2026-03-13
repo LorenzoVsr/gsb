@@ -63,28 +63,5 @@ namespace Metier
         // ajoute une visite concernant le praticien
         public void ajouteVisite(Visite v) => lesVisites.Add(v);
 
-        public TypePraticien TypePraticien
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public Specialite Specialite1
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public Visite Visite
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }
