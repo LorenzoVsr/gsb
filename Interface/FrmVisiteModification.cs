@@ -12,159 +12,99 @@ namespace Interface
             InitializeComponent();
         }
 
-        #region procédures événementielles
-
         private void FrmVisiteModification_Load(object sender, EventArgs e)
         {
             parametrerComposant();
         }
 
-        #endregion
-
-        #region procédures
-
         private void parametrerComposant()
         {
-            this.lblTitre.Text = "Modifier une visite";
+            lblTitre.Text = "Modifier une visite";
             parametrerDgv(dgvVisites);
             remplirDgv();
         }
 
         private void parametrerDgv(DataGridView dgv)
         {
-            // initialisation du datagridview : suppression des colonnes et des lignes ajoutées par défaut
+            dgv.Columns.Clear();
             dgv.Rows.Clear();
 
-            #region paramètrage concernant le datagridview dans son ensemble
-
-            // Accessibilité
+            // Comportement général
             dgv.Enabled = true;
-
-            // style de bordure
             dgv.BorderStyle = BorderStyle.FixedSingle;
-
-            // couleur de fond 
             dgv.BackgroundColor = Color.White;
-
-            // couleur de texte  
-            dgv.ForeColor = Color.Black;
-
-            // police de caractères par défaut
             dgv.DefaultCellStyle.Font = new Font("Georgia", 11);
-
-            // mode de sélection : FullRowSelect
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-            // sélection multiple 
             dgv.MultiSelect = false;
-
-            // l'utilisateur peut-il ajouter ou supprimer des lignes ?
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToAddRows = false;
-
-            // L'utilisateur peut-il modifier le contenu des cellules ?
             dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
-
-            // l'utilisateur peut-il redimensionner les colonnes et les lignes ?
             dgv.AllowUserToResizeColumns = false;
             dgv.AllowUserToResizeRows = false;
-
-            // l'utilisateur peut-il modifier l'ordre des colonnes ?
-            dgv.AllowUserToOrderColumns = false;
-
-            // le composant accepte t'il le 'déposer' dans un Glisser - Déposer ?
-            dgv.AllowDrop = false;
-
-            // ajustement automatique de la taille des colonnes
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            #endregion
-
-            #region paramètrage concernant la ligne d'entête 
-
-            // visibilité
+            // En-têtes de colonnes
             dgv.ColumnHeadersVisible = true;
-
-            // bordure
             dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-
-            // style
             dgv.EnableHeadersVisualStyles = false;
-            DataGridViewCellStyle style = dgv.ColumnHeadersDefaultCellStyle;
-            style.BackColor = Color.WhiteSmoke;
-            style.ForeColor = Color.Black;
-            style.SelectionBackColor = Color.WhiteSmoke;
-            style.SelectionForeColor = Color.Black;
-            style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            style.Font = new Font("Georgia", 12, FontStyle.Bold);
-
-            // hauteur 
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.WhiteSmoke;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Georgia", 12, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dgv.ColumnHeadersHeight = 40;
 
-            #endregion
-
-            #region paramètrage au niveau des lignes
-
-            // Hauteur 
+            // Lignes
+            dgv.RowHeadersVisible = false;
             dgv.RowTemplate.Height = 30;
-
-            #endregion
-
-            #region paramètrage au niveau des cellules
-
-            // style de bordure 
             dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
-
-            // couleur de fond
             dgv.RowsDefaultCellStyle.BackColor = Color.White;
+            dgv.RowsDefaultCellStyle.SelectionBackColor = Color.White;
+            dgv.RowsDefaultCellStyle.SelectionForeColor = Color.Black;
 
-            #endregion
+            // Colonne 0 : objet Visite (cachée)
+            DataGridViewTextBoxColumn colVisite = new DataGridViewTextBoxColumn();
+            colVisite.Name = "Visite";
+            colVisite.HeaderText = "";
+            colVisite.Visible = false;
+            dgv.Columns.Add(colVisite);
 
-            #region paramètrage au niveau de la zone sélectionnée
+            // Colonne 1 : bouton supprimer (image)
+            DataGridViewImageColumn colSupprimer = new DataGridViewImageColumn();
+            colSupprimer.Name = "Supprimer";
+            colSupprimer.HeaderText = "";
+            colSupprimer.Image = Resources.supprimer;
+            colSupprimer.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colSupprimer.Width = 50;
+            colSupprimer.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.Columns.Add(colSupprimer);
 
-            // couleur de fond et du texte
-            dgv.RowsDefaultCellStyle.SelectionBackColor = System.Drawing.Color.White;
-            dgv.RowsDefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
+            // Colonne 2 : date
+            DataGridViewTextBoxColumn colDate = new DataGridViewTextBoxColumn();
+            colDate.Name = "Date";
+            colDate.HeaderText = "Programmée le";
+            dgv.Columns.Add(colDate);
 
-            #endregion
+            // Colonne 3 : heure
+            DataGridViewTextBoxColumn colHeure = new DataGridViewTextBoxColumn();
+            colHeure.Name = "Heure";
+            colHeure.HeaderText = "à";
+            dgv.Columns.Add(colHeure);
 
-            #region paramètrage des colonnes
+            // Colonne 4 : ville
+            DataGridViewTextBoxColumn colLieu = new DataGridViewTextBoxColumn();
+            colLieu.Name = "Lieu";
+            colLieu.HeaderText = "sur";
+            dgv.Columns.Add(colLieu);
 
-            // Colonne 0 : Visite (cachée)
-            dgv.Columns[0].Visible = false;
+            // Colonne 5 : praticien
+            DataGridViewTextBoxColumn colPraticien = new DataGridViewTextBoxColumn();
+            colPraticien.Name = "Praticien";
+            colPraticien.HeaderText = "chez";
+            dgv.Columns.Add(colPraticien);
 
-            // Colonne 1 : Image pour supprimer
-            dgv.Columns[1].Width = 50;
-            dgv.Columns[1].HeaderText = "";
-            dgv.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            // Colonne 2 : Date
-            dgv.Columns[2].HeaderText = "Programmée le";
-            dgv.Columns[2].Width = 150;
-            dgv.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-            // Colonne 3 : Heure
-            dgv.Columns[3].HeaderText = "à";
-            dgv.Columns[3].Width = 60;
-            dgv.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            // Colonne 4 : Ville
-            dgv.Columns[4].HeaderText = "sur";
-            dgv.Columns[4].Width = 150;
-            dgv.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-            // Colonne 5 : Praticien
-            dgv.Columns[5].HeaderText = "chez";
-            dgv.Columns[5].Width = 250;
-            dgv.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-            // désactiver le tri sur toutes les colonnes
-            for (int i = 0; i < dgv.ColumnCount; i++)
-                dgv.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-
-            #endregion
+            // Désactiver le tri sur toutes les colonnes
+            foreach (DataGridViewColumn col in dgv.Columns)
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
         private void remplirDgv()
@@ -172,78 +112,53 @@ namespace Interface
             dgvVisites.Rows.Clear();
             foreach (Visite v in session.MesVisites.OrderBy(v => v.DateEtHeure))
             {
-                int rowIndex = dgvVisites.Rows.Add();
-                DataGridViewRow row = dgvVisites.Rows[rowIndex];
+                int i = dgvVisites.Rows.Add();
+                DataGridViewRow row = dgvVisites.Rows[i];
 
-                // Colonne 0 : Visite (objet caché)
-                row.Cells[0].Value = v;
-
-                // Colonne 1 : Image de suppression
-                row.Cells[1].Value = Resources.supprimer;
-
-                // Colonne 2 : Date
-                row.Cells[2].Value = v.DateEtHeure.ToShortDateString();
-
-                // Colonne 3 : Heure
-                row.Cells[3].Value = v.DateEtHeure.ToString("HH:mm");
-
-                // Colonne 4 : Ville
-                row.Cells[4].Value = v.LePraticien.Ville;
-
-                // Colonne 5 : Praticien
-                row.Cells[5].Value = v.LePraticien.NomPrenom;
+                row.Cells["Visite"].Value = v;
+                row.Cells["Supprimer"].Value = Resources.supprimer;
+                row.Cells["Date"].Value = v.DateEtHeure.ToShortDateString();
+                row.Cells["Heure"].Value = v.DateEtHeure.ToString("HH:mm");
+                row.Cells["Lieu"].Value = v.LePraticien.Ville;
+                row.Cells["Praticien"].Value = v.LePraticien.NomPrenom;
             }
         }
 
         private void dgvVisites_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0)
-                return;
+            // Ignorer les clics sur l'en-tête
+            if (e.RowIndex < 0) return;
 
-            // Si clic sur la colonne de suppression (Colonne 1)
-            if (e.ColumnIndex == 1)
+            Visite visite = (Visite)dgvVisites.Rows[e.RowIndex].Cells["Visite"].Value;
+
+            // Clic sur le bouton supprimer
+            if (e.ColumnIndex == dgvVisites.Columns["Supprimer"].Index)
             {
-                DialogResult result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette visite ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette visite ?", "Confirmation",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+
+                try
                 {
-                    // Récupérer l'objet visite depuis la colonne 0
-                    Visite visite = (Visite)dgvVisites.Rows[e.RowIndex].Cells[0].Value;
-
-                    try
-                    {
-                        // Supprimer de la base de données
-                        Passerelle.supprimerRendezVous(visite.Id);
-
-                        // Supprimer de la session
-                        session.MesVisites.Remove(visite);
-
-                        // Rafraîchir le datagridview
-                        remplirDgv();
-
-                        MessageBox.Show("La visite a été supprimée avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    Passerelle.supprimerRendezVous(visite.Id);
+                    session.MesVisites.Remove(visite);
+                    remplirDgv();
+                    MessageBox.Show("La visite a été supprimée avec succès.", "Succès",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            // Si clic sur une autre colonne, afficher les détails de la visite
-            else if (e.RowIndex >= 0)
+            else
             {
-                Visite visite = (Visite)dgvVisites.Rows[e.RowIndex].Cells[0].Value;
-
-                // Afficher les informations du praticien et de la visite
+                // Clic sur une autre colonne : afficher les détails
                 lblNom.Text = visite.LePraticien.NomPrenom;
                 dtpDate.Value = visite.DateEtHeure;
             }
         }
 
-        private void lblTitre_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
+        private void lblTitre_Click(object sender, EventArgs e) { }
     }
 }
