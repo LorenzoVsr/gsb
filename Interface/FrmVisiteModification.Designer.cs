@@ -39,6 +39,12 @@
             label1 = new Label();
             panelGauche = new Panel();
             dgvVisites = new DataGridView();
+            Colonne0 = new DataGridViewButtonColumn();
+            Colonne1 = new DataGridViewImageColumn();
+            Colonne2 = new DataGridViewTextBoxColumn();
+            Colonne3 = new DataGridViewTextBoxColumn();
+            Colonne4 = new DataGridViewTextBoxColumn();
+            Colonne5 = new DataGridViewTextBoxColumn();
             label3 = new Label();
             panelDroite.SuspendLayout();
             panelGauche.SuspendLayout();
@@ -48,6 +54,7 @@
             // lblTitre
             // 
             lblTitre.Size = new Size(1281, 74);
+            lblTitre.Click += lblTitre_Click;
             // 
             // panelDroite
             // 
@@ -144,12 +151,48 @@
             // dgvVisites
             // 
             dgvVisites.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvVisites.Columns.AddRange(new DataGridViewColumn[] { Colonne0, Colonne1, Colonne2, Colonne3, Colonne4, Colonne5 });
             dgvVisites.Dock = DockStyle.Fill;
             dgvVisites.Location = new Point(10, 25);
             dgvVisites.Name = "dgvVisites";
             dgvVisites.Size = new Size(835, 335);
             dgvVisites.TabIndex = 1;
             dgvVisites.CellContentClick += dgvVisites_CellContentClick;
+            // 
+            // Colonne0
+            // 
+            Colonne0.HeaderText = "objet visite";
+            Colonne0.Name = "Colonne0";
+            Colonne0.Resizable = DataGridViewTriState.True;
+            Colonne0.SortMode = DataGridViewColumnSortMode.Automatic;
+            Colonne0.Visible = false;
+            // 
+            // Colonne1
+            // 
+            Colonne1.HeaderText = "";
+            Colonne1.Name = "Colonne1";
+            Colonne1.Resizable = DataGridViewTriState.True;
+            Colonne1.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Colonne2
+            // 
+            Colonne2.HeaderText = "Programmée le ";
+            Colonne2.Name = "Colonne2";
+            // 
+            // Colonne3
+            // 
+            Colonne3.HeaderText = "à";
+            Colonne3.Name = "Colonne3";
+            // 
+            // Colonne4
+            // 
+            Colonne4.HeaderText = "sur";
+            Colonne4.Name = "Colonne4";
+            // 
+            // Colonne5
+            // 
+            Colonne5.HeaderText = "chez";
+            Colonne5.Name = "Colonne5";
             // 
             // label3
             // 
@@ -199,5 +242,11 @@
         private DateTimePicker dtpDate;
         private DataGridView dgvVisites;
         private Label label3;
+        private DataGridViewButtonColumn Colonne0;
+        private DataGridViewImageColumn Colonne1;
+        private DataGridViewTextBoxColumn Colonne2;
+        private DataGridViewTextBoxColumn Colonne3;
+        private DataGridViewTextBoxColumn Colonne4;
+        private DataGridViewTextBoxColumn Colonne5;
     }
 }

@@ -36,6 +36,7 @@ namespace Interface
             cbxPraticien.SelectedIndex = 0;
             cbxPraticien.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            // Alimentation de la zone de liste des motifs
             cbxMotif.DataSource = session.LesMotifs;
             cbxMotif.DisplayMember = "Libelle";
             cbxMotif.ValueMember = "Id";
@@ -45,7 +46,7 @@ namespace Interface
             dtpDate.CustomFormat = "dd/MM/yyyy HH:mm";
 
             parametrerDgv(dgvVisites);
-
+            remplirDgv();
         }
 
         private void parametrerDgv(DataGridView dgv)
@@ -231,30 +232,28 @@ namespace Interface
 
         private void ajout()
         {
+            // vérifier la date et l'heure
             if (dtpDate.Value < DateTime.Now.AddHours(1))
             {
                 MessageBox.Show("Veuillez sélectionner une date et une heure futures.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            // vérifier si c'est un dimanche
             if (dtpDate.Value.DayOfWeek == DayOfWeek.Sunday)
             {
                 MessageBox.Show("Veuillez sélectionner une date qui n'est pas un dimanche.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            // Vérifier l'heure entre 8 h et 19 h
             if (dtpDate.Value.Hour < 8 || dtpDate.Value.Hour >= 19)
             {
                 MessageBox.Show("Veuillez sélectionner une heure entre 8 h et 19 h.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (dtpDate.Value > DateTime.Today.AddDays(60).AddHours(19))
-            {
-                MessageBox.Show("Veuillez sélectionner une date dans les 2 mois à venir.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
+            // vérifier les conflits de rendez-vous pour le praticien sélectionné
             Praticien p = (Praticien)cbxPraticien.SelectedItem!;
             if (session.MesVisites.Any(v => v.LePraticien == p && v.Bilan is null))
             {
@@ -264,24 +263,30 @@ namespace Interface
 
             try
             {
+                // récupérer les données saisies
+
                 Motif m = (Motif)cbxMotif.SelectedItem!;
                 DateTime date = dtpDate.Value;
-                int id = Passerelle.ajouterRendezVous(
-                p.Id,
-                m.Id,
-                date);
 
+                // enregistrer dans la base de données
+                int id = Passerelle.ajouterRendezVous(p.Id, m.Id, date);
+
+                // créer la visite et l'ajouter à la session
                 session.MesVisites.Add(new Visite(id, p, m, date));
 
+                // mettre à jour le datagridview
                 remplirDgv();
 
+                // message de confirmation
                 MessageBox.Show("La visite a été ajoutée avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // activer l'option du menu permettant la modification de la visite dans le menu
                 modifierRendezVous.Enabled = true;
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur est survenue lors de l'ajout de la visite : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -290,6 +295,11 @@ namespace Interface
         private void btnAjouter_Click(object sender, EventArgs e)
         {
             ajout();
+        }
+
+        private void lblTitre_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

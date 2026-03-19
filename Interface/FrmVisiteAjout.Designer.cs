@@ -51,6 +51,7 @@
             // lblTitre
             // 
             lblTitre.Size = new Size(940, 74);
+            lblTitre.Click += lblTitre_Click;
             // 
             // panelDroite
             // 
