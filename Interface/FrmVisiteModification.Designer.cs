@@ -70,6 +70,7 @@
             panelDroite.Name = "panelDroite";
             panelDroite.Size = new Size(426, 370);
             panelDroite.TabIndex = 13;
+            panelDroite.Paint += panelDroite_Paint;
             // 
             // btnModifier
             // 
@@ -80,6 +81,7 @@
             btnModifier.TabIndex = 6;
             btnModifier.Text = "Modifier";
             btnModifier.UseVisualStyleBackColor = false;
+            btnModifier.Click += btnModifier_Click;
             // 
             // dtpDate
             // 

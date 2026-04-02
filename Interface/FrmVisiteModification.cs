@@ -118,7 +118,7 @@ namespace Interface
                 row.Cells["Visite"].Value = v;
                 row.Cells["Supprimer"].Value = Resources.supprimer;
                 row.Cells["Date"].Value = v.DateEtHeure.ToShortDateString();
-                row.Cells["Heure"].Value = v.DateEtHeure.ToString("HH:mm");
+                row.Cells["Heure"].Value = v.DateEtHeure.ToString("D");
                 row.Cells["Lieu"].Value = v.LePraticien.Ville;
                 row.Cells["Praticien"].Value = v.LePraticien.NomPrenom;
             }
@@ -155,10 +155,40 @@ namespace Interface
             {
                 // Clic sur une autre colonne : afficher les détails
                 lblNom.Text = visite.LePraticien.NomPrenom;
+                lblDate.Text = visite.DateEtHeure.ToString("dd/MM/yyyy HH:mm");
                 dtpDate.Value = visite.DateEtHeure;
             }
         }
 
+        // Clic sur le bouton "modifier"
+        private void btnModifier_Click(object sender, EventArgs e) {
+            if (dgvVisites.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Veuillez sélectionner une visite à modifier.", "Aucune sélection",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            Visite visite = (Visite)dgvVisites.SelectedRows[0].Cells["Visite"].Value;
+            try
+            {
+                DateTime nouvelleDate = dtpDate.Value;
+                Passerelle.modifierRendezVous(visite.Id, nouvelleDate);
+                visite.deplacer(nouvelleDate);
+                remplirDgv();
+                MessageBox.Show("La visite a été modifiée avec succès.", "Succès",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void lblTitre_Click(object sender, EventArgs e) { }
+
+        private void panelDroite_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
