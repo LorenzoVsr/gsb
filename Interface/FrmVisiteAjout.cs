@@ -16,7 +16,6 @@ namespace Interface
         private void FrmVisiteAjout_Load(object sender, EventArgs e)
         {
             parametrerComposant();
-            remplirDgv();
         }
 
         #endregion
@@ -223,8 +222,8 @@ namespace Interface
             dgvVisites.Rows.Clear();
             foreach (Visite v in session.MesVisites.Where(v => v.Bilan is null).OrderBy(v => v.DateEtHeure))
             {
-                dgvVisites.Rows.Add(v.DateEtHeure.ToLongDateString(),
-                v.DateEtHeure.ToShortDateString(),
+                dgvVisites.Rows.Add(v.DateEtHeure.ToShortDateString(),
+                v.DateEtHeure.ToString("HH:mm"),
                 v.LePraticien.Ville,
                 v.LePraticien.NomPrenom);
             }

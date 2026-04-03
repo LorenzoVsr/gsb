@@ -110,7 +110,7 @@ namespace Interface
         private void remplirDgv()
         {
             dgvVisites.Rows.Clear();
-            foreach (Visite v in session.MesVisites.OrderBy(v => v.DateEtHeure))
+            foreach (Visite v in session.MesVisites.Where(v => v.Bilan is null).OrderBy(v => v.DateEtHeure))
             {
                 int i = dgvVisites.Rows.Add();
                 DataGridViewRow row = dgvVisites.Rows[i];
@@ -118,7 +118,7 @@ namespace Interface
                 row.Cells["Visite"].Value = v;
                 row.Cells["Supprimer"].Value = Resources.supprimer;
                 row.Cells["Date"].Value = v.DateEtHeure.ToShortDateString();
-                row.Cells["Heure"].Value = v.DateEtHeure.ToString("D");
+                row.Cells["Heure"].Value = v.DateEtHeure.ToString("HH:mm");
                 row.Cells["Lieu"].Value = v.LePraticien.Ville;
                 row.Cells["Praticien"].Value = v.LePraticien.NomPrenom;
             }

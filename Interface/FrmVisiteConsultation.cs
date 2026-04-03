@@ -13,67 +13,95 @@ namespace Interface
         {
             parametrerComposant();
             centrerFormulaire();
+            this.Resize += FrmVisiteConsultation_Resize;
             remplirDgvVisites();
+        }
+
+        private void FrmVisiteConsultation_Resize(object? sender, EventArgs e)
+        {
+            centrerFormulaire();
         }
 
         private void parametrerComposant()
         {
             lblTitre.Text = "Consultation des visites";
 
-            parametrerDgvVisites();
+            parametrerDgv(dgvVisites);
             parametrerDgvEchantillons();
-            viderDetailsVisite();
+            dgvVisites.SelectionChanged += dgvVisites_SelectionChanged;
+            ViderAffichage();
         }
 
-        private void centrerPanelCentral()
+        private void parametrerDgv(DataGridView dgv)
         {
-            panelCentral.Left = Math.Max(0, (ClientSize.Width - panelCentral.Width) / 2);
-            panelCentral.Top = lblTitre.Bottom;
-        }
+            dgv.Columns.Clear();
+            dgv.Rows.Clear();
 
-        private void parametrerDgvVisites()
-        {
-            dgvVisites.Columns.Clear();
-            dgvVisites.Rows.Clear();
-
-            dgvVisites.ReadOnly = true;
-            dgvVisites.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvVisites.MultiSelect = false;
-            dgvVisites.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvVisites.AllowUserToAddRows = false;
-            dgvVisites.AllowUserToDeleteRows = false;
-            dgvVisites.RowHeadersVisible = false;
+            dgv.Enabled = true;
+            dgv.BorderStyle = BorderStyle.FixedSingle;
+            dgv.BackgroundColor = Color.White;
+            dgv.ForeColor = Color.Black;
+            dgv.DefaultCellStyle.Font = new Font("Georgia", 11);
+            dgv.ReadOnly = true;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.AllowUserToOrderColumns = false;
+            dgv.AllowDrop = false;
+            dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgv.RowHeadersVisible = false;
+            dgv.ColumnHeadersVisible = true;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.WhiteSmoke;
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.WhiteSmoke;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.Black;
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Georgia", 12, FontStyle.Bold);
+            dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dgv.ColumnHeadersHeight = 40;
+            dgv.RowTemplate.Height = 30;
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgv.RowsDefaultCellStyle.BackColor = Color.White;
+            dgv.RowsDefaultCellStyle.SelectionBackColor = Color.Lavender;
+            dgv.RowsDefaultCellStyle.SelectionForeColor = Color.Black;
 
             DataGridViewTextBoxColumn colVisite = new DataGridViewTextBoxColumn();
             colVisite.Name = "Visite";
             colVisite.HeaderText = "";
             colVisite.Visible = false;
-            dgvVisites.Columns.Add(colVisite);
+            dgv.Columns.Add(colVisite);
 
             DataGridViewTextBoxColumn colDate = new DataGridViewTextBoxColumn();
             colDate.Name = "Date";
             colDate.HeaderText = "Programmée le";
-            dgvVisites.Columns.Add(colDate);
+            colDate.FillWeight = 50;
+            colDate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgv.Columns.Add(colDate);
 
             DataGridViewTextBoxColumn colHeure = new DataGridViewTextBoxColumn();
             colHeure.Name = "Heure";
             colHeure.HeaderText = "à";
+            colHeure.FillWeight = 20;
             colHeure.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colHeure.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvVisites.Columns.Add(colHeure);
+            dgv.Columns.Add(colHeure);
 
             DataGridViewTextBoxColumn colLieu = new DataGridViewTextBoxColumn();
             colLieu.Name = "Lieu";
             colLieu.HeaderText = "sur";
-            dgvVisites.Columns.Add(colLieu);
+            colLieu.FillWeight = 30;
+            colLieu.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgv.Columns.Add(colLieu);
 
-            DataGridViewTextBoxColumn colPraticien = new DataGridViewTextBoxColumn();
-            colPraticien.Name = "Praticien";
-            colPraticien.HeaderText = "chez";
-            dgvVisites.Columns.Add(colPraticien);
-
-            foreach (DataGridViewColumn col in dgvVisites.Columns)
+            foreach (DataGridViewColumn col in dgv.Columns)
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
+
         }
 
         private void parametrerDgvEchantillons()
@@ -84,7 +112,7 @@ namespace Interface
             dataGridView2.ReadOnly = true;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView2.MultiSelect = false;
-            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dataGridView2.AllowUserToAddRows = false;
             dataGridView2.AllowUserToDeleteRows = false;
             dataGridView2.RowHeadersVisible = false;
@@ -92,22 +120,26 @@ namespace Interface
             DataGridViewTextBoxColumn colMedicament = new DataGridViewTextBoxColumn();
             colMedicament.Name = "Medicament";
             colMedicament.HeaderText = "Médicament";
+            colMedicament.Width = 170;
             dataGridView2.Columns.Add(colMedicament);
 
             DataGridViewTextBoxColumn colQuantite = new DataGridViewTextBoxColumn();
             colQuantite.Name = "Quantite";
             colQuantite.HeaderText = "Qté";
+            colQuantite.Width = 75;
             colQuantite.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colQuantite.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView2.Columns.Add(colQuantite);
 
             foreach (DataGridViewColumn col in dataGridView2.Columns)
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
+
         }
 
         private void centrerFormulaire()
         {
             panelCentral.Left = (this.ClientSize.Width - panelCentral.Width) / 2;
+            panelCentral.Top = lblTitre.Bottom;
         }
 
         private void remplirDgvVisites()
@@ -117,29 +149,34 @@ namespace Interface
             {
                 int index = dgvVisites.Rows.Add(
                     v,
-                    v.DateEtHeure.ToShortDateString(),
+                    v.DateEtHeure.ToLongDateString(),
                     v.DateEtHeure.ToString("HH:mm"),
-                    v.LePraticien.Ville,
-                    v.LePraticien.NomPrenom);
+                    v.LePraticien.Ville);
 
-                if (!string.IsNullOrWhiteSpace(v.Bilan))
+                if (v.DateEtHeure < DateTime.Now)
                     dgvVisites.Rows[index].DefaultCellStyle.ForeColor = Color.SeaGreen;
             }
 
             if (dgvVisites.Rows.Count > 0)
             {
                 dgvVisites.Rows[0].Selected = true;
-                Visite visite = (Visite)dgvVisites.Rows[0].Cells["Visite"].Value;
-                afficherDetailVisite(visite);
+                afficher();
             }
             else
             {
-                viderDetailsVisite();
+                ViderAffichage();
             }
         }
 
-        private void afficherDetailVisite(Visite visite)
+        private void afficher()
         {
+            Visite? visite = getVisite();
+            if (visite is null)
+            {
+                ViderAffichage();
+                return;
+            }
+
             lblPraticien.Text = visite.LePraticien.NomPrenom;
             lblRue.Text = $"{visite.LePraticien.Rue}, {visite.LePraticien.CodePostal} {visite.LePraticien.Ville}";
             lblTelephone.Text = visite.LePraticien.Telephone;
@@ -162,7 +199,7 @@ namespace Interface
                 dataGridView2.Rows.Add(echantillon.Key.Id, echantillon.Value);
         }
 
-        private void viderDetailsVisite()
+        private void ViderAffichage()
         {
             lblPraticien.Text = string.Empty;
             lblRue.Text = string.Empty;
@@ -176,95 +213,26 @@ namespace Interface
             dataGridView2.Rows.Clear();
         }
 
-
-        private void lblTitre_Click(object sender, EventArgs e)
+        private Visite? getVisite()
         {
+            if (dgvVisites.SelectedRows.Count == 0)
+                return null;
 
+            return dgvVisites.SelectedRows[0].Cells["Visite"].Value as Visite;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTelephone_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblRue_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void dgvVisites_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Ignorer les clics sur l'en-tête
             if (e.RowIndex < 0) return;
 
-            Visite visite = (Visite)dgvVisites.Rows[e.RowIndex].Cells["Visite"].Value;
-            afficherDetailVisite(visite);
+            afficher();
         }
 
-
-        private void lblPraticien_Click(object sender, EventArgs e)
+        private void dgvVisites_SelectionChanged(object? sender, EventArgs e)
         {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            dgvVisites_CellContentClick(sender, e);
-        }
-
-        private void lblMediacament_Click(object sender, EventArgs e)
-        {
-
+            afficher();
         }
     }
 }

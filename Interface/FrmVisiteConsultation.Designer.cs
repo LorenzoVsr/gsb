@@ -61,7 +61,6 @@
             // lblTitre
             // 
             lblTitre.Size = new Size(1280, 74);
-            lblTitre.Click += lblTitre_Click;
             // 
             // panelCentral
             // 
@@ -83,7 +82,6 @@
             panelCentral.Name = "panelCentral";
             panelCentral.Size = new Size(1140, 620);
             panelCentral.TabIndex = 13;
-            panelCentral.Paint += panel2_Paint;
             // 
             // lblMotif
             // 
@@ -112,7 +110,6 @@
             label7.Size = new Size(140, 15);
             label7.TabIndex = 2;
             label7.Text = "Médicaments présentés";
-            label7.Click += label7_Click;
             // 
             // label5
             // 
@@ -123,7 +120,6 @@
             label5.Size = new Size(38, 15);
             label5.TabIndex = 0;
             label5.Text = "Motif";
-            label5.Click += label5_Click;
             // 
             // panel5
             // 
@@ -142,7 +138,6 @@
             label8.Size = new Size(428, 168);
             label8.TabIndex = 0;
             label8.Text = "lblBilan";
-            label8.Click += label8_Click;
             // 
             // panel4
             // 
@@ -153,7 +148,6 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(214, 75);
             panel4.TabIndex = 1;
-            panel4.Paint += panel4_Paint;
             // 
             // lblMediacament
             // 
@@ -163,7 +157,6 @@
             lblMediacament.Size = new Size(212, 73);
             lblMediacament.TabIndex = 6;
             lblMediacament.Text = "lblMediacament";
-            lblMediacament.Click += lblMediacament_Click;
             // 
             // label4
             // 
@@ -173,7 +166,6 @@
             label4.Size = new Size(114, 15);
             label4.TabIndex = 1;
             label4.Text = "Echantillions fournis";
-            label4.Click += label4_Click;
             // 
             // panel3
             // 
@@ -192,7 +184,7 @@
             // lblSpecialite
             // 
             lblSpecialite.AutoSize = true;
-            lblSpecialite.Location = new Point(250, 35);
+            lblSpecialite.Location = new Point(316, 35);
             lblSpecialite.Name = "lblSpecialite";
             lblSpecialite.Size = new Size(70, 15);
             lblSpecialite.TabIndex = 5;
@@ -201,7 +193,7 @@
             // lblType
             // 
             lblType.AutoSize = true;
-            lblType.Location = new Point(250, 13);
+            lblType.Location = new Point(316, 13);
             lblType.Name = "lblType";
             lblType.Size = new Size(44, 15);
             lblType.TabIndex = 4;
@@ -215,7 +207,6 @@
             lblEmail.Size = new Size(49, 15);
             lblEmail.TabIndex = 3;
             lblEmail.Text = "lblEmail";
-            lblEmail.Click += label10_Click;
             // 
             // lblTelephone
             // 
@@ -225,7 +216,6 @@
             lblTelephone.Size = new Size(74, 15);
             lblTelephone.TabIndex = 2;
             lblTelephone.Text = "lblTelephone";
-            lblTelephone.Click += lblTelephone_Click;
             // 
             // lblRue
             // 
@@ -235,7 +225,6 @@
             lblRue.Size = new Size(40, 15);
             lblRue.TabIndex = 1;
             lblRue.Text = "lblRue";
-            lblRue.Click += lblRue_Click;
             // 
             // lblPraticien
             // 
@@ -245,7 +234,6 @@
             lblPraticien.Size = new Size(66, 15);
             lblPraticien.TabIndex = 0;
             lblPraticien.Text = "lblPraticien";
-            lblPraticien.Click += lblPraticien_Click;
             // 
             // dataGridView2
             // 
@@ -265,7 +253,6 @@
             label2.Size = new Size(56, 15);
             label2.TabIndex = 16;
             label2.Text = "Praticien";
-            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -275,7 +262,6 @@
             label1.Size = new Size(229, 15);
             label1.TabIndex = 15;
             label1.Text = "Sélectionner la visite pour afficher le détail";
-            label1.Click += label1_Click;
             // 
             // dgvVisites
             // 
@@ -285,7 +271,7 @@
             dgvVisites.Name = "dgvVisites";
             dgvVisites.Size = new Size(416, 555);
             dgvVisites.TabIndex = 14;
-            dgvVisites.CellContentClick += dataGridView1_CellContentClick;
+            dgvVisites.CellContentClick += dgvVisites_CellContentClick;
             // 
             // FrmVisiteConsultation
             // 
